@@ -29,11 +29,18 @@ export class CategoriesController {
   }
 
   @Get('/main')
-  findOrderedByTrending(
+  findMain(
     @Query() findCategoryDto: FindCategoryDto,
     @Query() paginationDto: PaginationDto,
   ) {
     return this.categoriesService.findAllMain( findCategoryDto, paginationDto );
+  }
+
+  @Get('/tree')
+  findTree(
+    @Query() findCategoryDto: FindCategoryDto,
+  ) {
+    return this.categoriesService.findAllWithChildrens( findCategoryDto );
   }
 
   @Get(':id')

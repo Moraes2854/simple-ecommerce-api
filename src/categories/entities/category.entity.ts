@@ -41,12 +41,12 @@ export class Category {
     })
     updatedAt: Date;
 
-    @ManyToOne(() => Category, category => category.children)
+    @ManyToOne(() => Category, category => category.childrens)
     @JoinColumn({ name: "parentId" })
     parent: Category | null;
 
     @OneToMany(() => Category, category => category.parent)
-    children: Category[];
+    childrens: Category[];
 
     @ManyToMany(
         () => Product,

@@ -18,6 +18,7 @@ import { TrendsModule } from './trends/trends.module';
       password: envs.dbPassword,
       autoLoadEntities: true,
       synchronize: true,
+      ssl: true
     }),
     ProductsModule, 
     CategoriesModule,

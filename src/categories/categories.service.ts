@@ -69,6 +69,7 @@ export class CategoriesService {
         },
         take: limit,
         skip: offset,
+        relations: ['childrens'],
         order: {
           name: 'ASC',
         }
@@ -78,6 +79,23 @@ export class CategoriesService {
       this.handleDBError(error);
     }
   }
+
+  async findAllWithChildrens( filters: FindCategoryDto, ){
+    try {
+      const categories = await this.categoryRepository.find({
+        where: this.buildWhereByFilters( filters ),
+        order: { name: 'ASC' }
+      });
+
+      const finalCategories = this.buildCategoryTree( categories );
+
+
+      return finalCategories;
+    } catch (error) {
+      this.handleDBError(error);
+    }
+  }
+
 
   async findOne( id: string, filters: FindCategoryDto ) {
     try {
@@ -141,6 +159,24 @@ export class CategoriesService {
 
     return where;
   }
+
+  private buildCategoryTree(categories: Category[]): Category[] {
+    let tree: Category[] = [];
+    let lookup: { [key: number]: Category } = {};
+
+    categories.forEach(category => {
+      lookup[category.id] = category;
+      category.childrens = [];
+    });
+
+    categories.forEach(category => {
+      if (category.parentId) lookup[category.parentId].childrens.push(category);
+      else tree.push(category); 
+    });
+
+    return tree;
+  }
+
 
   private handleDBError( error: any ){
     if (error.code === '23505') throw new BadRequestException(error.datail);
