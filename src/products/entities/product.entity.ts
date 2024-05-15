@@ -36,16 +36,6 @@ export class Product {
     })
     promotionalPriceDollar: number;
 
-    @Column('boolean', {
-        default: false,
-    })
-    isOnPromotionPesos: boolean;
-
-    @Column('boolean', {
-        default: false,
-    })
-    isOnPromotionDollar: boolean;
-
     @Column({
         type: 'text',
         nullable: true

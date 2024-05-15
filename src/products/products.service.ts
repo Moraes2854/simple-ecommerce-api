@@ -140,7 +140,6 @@ export class ProductsService {
     if ( typeof filters.isAvailable === 'boolean' ) where = { ...where, isAvailable: filters.isAvailable };
     if ( filters.name ) where = { ...where, name: ILike(`%${ filters.name }%`) };
     // if ( filters.categoryId ) where = { ...where, categoryId: filters.categoryId };
-    // if ( typeof filters.isOnPromotion === 'boolean' ) where = { ...where, isOnPromotion: filters.isOnPromotion };
     // if ( filters.price ) where = { ...where, price: filters.price };
     // if ( filters.promotionalPrice ) where = { ...where, promotionalPrice: filters.promotionalPrice };
     if ( filters.stock ) where = { ...where, stock: filters.stock };

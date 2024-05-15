@@ -26,24 +26,6 @@ export class CreateProductDto {
     @IsPositive()
     promotionalPriceDollar?: number;
 
-    @IsBoolean()
-    @IsOptional()
-    @Transform(({ value }) => {
-        if ( value === 'true' ) return true;
-        if ( value === 'false' ) return false;
-        return value;
-    })
-    isOnPromotionPesos?: boolean;
-
-    @IsBoolean()
-    @IsOptional()
-    @Transform(({ value }) => {
-        if ( value === 'true' ) return true;
-        if ( value === 'false' ) return false;
-        return value;
-    })
-    isOnPromotionDollar?: boolean;
-
     @IsString()
     @IsOptional()
     description?: string;

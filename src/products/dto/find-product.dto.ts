@@ -63,33 +63,6 @@ export class FindProductDto {
     @Type( () => Number )
     promotionalPriceDollar?: number;
 
-    @ApiProperty({
-        description: 'product price in pesos is on promotion ?',
-        required: false,
-        type: Boolean,
-    })
-    @IsBoolean()
-    @IsOptional()
-    @Transform(({ value }) => {
-        if ( value === 'true' ) return true;
-        if ( value === 'false' ) return false;
-        return value;
-    })
-    isOnPromotionPesos?: boolean;
-
-    @ApiProperty({
-        description: 'product price in dollar is on promotion ?',
-        required: false,
-        type: Boolean,
-    })
-    @IsBoolean()
-    @IsOptional()
-    @Transform(({ value }) => {
-        if ( value === 'true' ) return true;
-        if ( value === 'false' ) return false;
-        return value;
-    })
-    isOnPromotionDollar?: boolean;
 
     @ApiProperty({
         description: 'slug of product',
