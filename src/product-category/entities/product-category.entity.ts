@@ -19,7 +19,7 @@ export class ProductCategory {
       {onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
     )
     @JoinColumn([{ name: 'productId', referencedColumnName: 'id' }])
-    products: Product[];
+    product: Product;
   
     @ManyToOne(
       () => Category,
@@ -27,5 +27,5 @@ export class ProductCategory {
       { onDelete: 'NO ACTION', onUpdate: 'NO ACTION' }
     )
     @JoinColumn([{ name: 'categoryId', referencedColumnName: 'id' }])
-    categories: Category[];
+    category: Category;
 }

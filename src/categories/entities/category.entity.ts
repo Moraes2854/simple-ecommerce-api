@@ -21,7 +21,7 @@ export class Category {
     description: string;
 
     @Column('boolean', {
-        default: false,
+        default: true,
     })
     isAvailable: boolean;
 

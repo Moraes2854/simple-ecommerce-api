@@ -14,7 +14,6 @@ export class ProductsController {
   }
 
   @Get()
-  @Auth()
   findAll(
     @Query() findProductDto: FindProductDto,
     @Query() paginationDto: PaginationDto,
@@ -25,9 +24,9 @@ export class ProductsController {
   @Get('/byCategoryId/:categoryId')
   findAllByCategoryId(
     @Param('categoryId') categoryId: string,
-    @Query('isAvailable', ParseBoolPipe) isAvailable: boolean,
+    // @Query('isAvailable', ParseBoolPipe) isAvailable: boolean,
   ) {
-    return this.productsService.findAllOrderedAlphabeticallyByCategory( categoryId, isAvailable );
+    return this.productsService.findAllOrderedAlphabeticallyByCategory( categoryId, undefined );
   }
 
   @Get(':id')

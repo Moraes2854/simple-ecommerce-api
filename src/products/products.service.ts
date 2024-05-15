@@ -66,7 +66,7 @@ export class ProductsService {
       if ( typeof isAvailable === 'boolean' ) return product.isAvailable === isAvailable;
       return true;
       //@ts-ignore
-    }).sort( (a, b) => a.name - b.name )
+    })
     return finalProducts;
   }
 
@@ -149,6 +149,7 @@ export class ProductsService {
   }
 
   private handleDBError( error: any ){
+    console.log(error);
     if (error.code === '23505') throw new BadRequestException(error.datail);
     this.logger.error(error);
     if ( !error.message ) throw new InternalServerErrorException(`Unexpected error, check server logs`);

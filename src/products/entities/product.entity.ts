@@ -69,7 +69,7 @@ export class Product {
     images?: string[];
 
     @Column('boolean', {
-        default: false,
+        default: true,
     })
     isAvailable: boolean;
 

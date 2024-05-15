@@ -51,7 +51,7 @@ export class ProductCategoryService {
             const productsCategories = await this.productCategoryRepository.find({
                 where: { categoryId },
                 relations: {
-                    products: true
+                    product: true
                 }
             });
             const products: Product[] = [];
@@ -59,7 +59,7 @@ export class ProductCategoryService {
             // const products: Product[] = productsCategories.map( productCategory => productCategory.products );
 
             productsCategories.forEach( productCategory => {
-                products.push( ...productCategory.products )
+                products.push( productCategory.product )
             });
             return products;
         } catch (error) {
@@ -93,6 +93,7 @@ export class ProductCategoryService {
     }
 
     private handleDBError( error: any ){
+        console.log(error);
         if (error.code === '23505') throw new BadRequestException(error.datail);
         
         this.logger.error(error);
