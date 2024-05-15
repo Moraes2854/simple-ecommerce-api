@@ -13,20 +13,38 @@ export class Product {
     name: string;
 
     @Column('float', {
-        default: 0
+        default: null,
+        nullable: true,
     })
-    price: number;
+    pricePesos: number;
 
     @Column('float', {
         default: null,
         nullable: true
     })
-    promotionalPrice: number;
+    promotionalPricePesos: number;
+
+    @Column('float', {
+        default: null,
+        nullable: true,
+    })
+    priceDollar: number;
+
+    @Column('float', {
+        default: null,
+        nullable: true
+    })
+    promotionalPriceDollar: number;
 
     @Column('boolean', {
         default: false,
     })
-    isOnPromotion: boolean;
+    isOnPromotionPesos: boolean;
+
+    @Column('boolean', {
+        default: false,
+    })
+    isOnPromotionDollar: boolean;
 
     @Column({
         type: 'text',

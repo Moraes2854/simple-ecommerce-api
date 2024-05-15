@@ -6,6 +6,7 @@ import { ProductCategoryModule } from './product-category/product-category.modul
 import { envs } from './config/envs';
 import { HomeModule } from './home/home.module';
 import { TrendsModule } from './trends/trends.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TrendsModule } from './trends/trends.module';
     ProductCategoryModule,
     HomeModule,
     TrendsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

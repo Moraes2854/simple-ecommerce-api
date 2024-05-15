@@ -9,12 +9,22 @@ export class CreateProductDto {
     @IsNumber()
     @IsOptional()
     @IsPositive()
-    price?: number;
+    pricePesos?: number;
 
     @IsNumber()
     @IsOptional()
     @IsPositive()
-    promotionalPrice?: number;
+    promotionalPricePesos?: number;
+
+    @IsNumber()
+    @IsOptional()
+    @IsPositive()
+    priceDollar?: number;
+
+    @IsNumber()
+    @IsOptional()
+    @IsPositive()
+    promotionalPriceDollar?: number;
 
     @IsBoolean()
     @IsOptional()
@@ -23,7 +33,16 @@ export class CreateProductDto {
         if ( value === 'false' ) return false;
         return value;
     })
-    isOnPromotion?: boolean;
+    isOnPromotionPesos?: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    @Transform(({ value }) => {
+        if ( value === 'true' ) return true;
+        if ( value === 'false' ) return false;
+        return value;
+    })
+    isOnPromotionDollar?: boolean;
 
     @IsString()
     @IsOptional()

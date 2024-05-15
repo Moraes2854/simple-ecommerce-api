@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseBoolPipe
 import { ProductsService } from './products.service';
 import { CreateProductDto, FindProductDto, UpdateProductDto } from './dto';
 import { PaginationDto } from '../common/dto';
+import { Auth } from '../auth/decorators';
 
 @Controller('products')
 export class ProductsController {
@@ -13,6 +14,7 @@ export class ProductsController {
   }
 
   @Get()
+  @Auth()
   findAll(
     @Query() findProductDto: FindProductDto,
     @Query() paginationDto: PaginationDto,
