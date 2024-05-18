@@ -43,6 +43,12 @@ export class Product {
     description: string;
 
     @Column('text', {
+        array: true,
+        default: []
+    })
+    specifications: string[];
+
+    @Column('text', {
         unique: true,
     })
     slug: string;
@@ -56,7 +62,7 @@ export class Product {
         array: true,
         default: []
     })
-    images?: string[];
+    images: string[];
 
     @Column('boolean', {
         default: true,

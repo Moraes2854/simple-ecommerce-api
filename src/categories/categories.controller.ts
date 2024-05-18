@@ -31,16 +31,15 @@ export class CategoriesController {
   @Get('/main')
   findMain(
     @Query() findCategoryDto: FindCategoryDto,
-    @Query() paginationDto: PaginationDto,
   ) {
-    return this.categoriesService.findAllMain( findCategoryDto, paginationDto );
+    return this.categoriesService.findAllMain( findCategoryDto );
   }
 
   @Get('/tree')
   findTree(
     @Query() findCategoryDto: FindCategoryDto,
   ) {
-    return this.categoriesService.findAllWithChildrens( findCategoryDto );
+    return this.categoriesService.findTree( findCategoryDto );
   }
 
   @Get(':id')

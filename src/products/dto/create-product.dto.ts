@@ -44,6 +44,11 @@ export class CreateProductDto {
     @IsOptional()
     images?: string[];
 
+    @IsString({ each: true })
+    @IsArray()
+    @IsOptional()
+    specifications?: string[];
+
     @IsBoolean()
     @IsOptional()
     @Transform(({ value }) => {

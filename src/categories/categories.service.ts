@@ -59,16 +59,13 @@ export class CategoriesService {
     }
   }
 
-  async findAllMain( filters: FindCategoryDto, paginationDto: PaginationDto ){
+  async findAllMain( filters: FindCategoryDto ){
     try {
-      const { limit = 20, offset = 0 } = paginationDto;
       const categories = await this.categoryRepository.find({
         where: {
           ...this.buildWhereByFilters( filters ),
           parentId: IsNull()
         },
-        take: limit,
-        skip: offset,
         relations: ['childrens'],
         order: {
           name: 'ASC',
@@ -80,12 +77,9 @@ export class CategoriesService {
     }
   }
 
-  async findAllWithChildrens( filters: FindCategoryDto, ){
+  async findTree( filters: FindCategoryDto, ){
     try {
-      const categories = await this.categoryRepository.find({
-        where: this.buildWhereByFilters( filters ),
-        order: { name: 'ASC' }
-      });
+      const categories = await this.findAllMain( filters );
 
       const finalCategories = this.buildCategoryTree( categories );
 
