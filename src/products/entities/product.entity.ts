@@ -69,6 +69,11 @@ export class Product {
     })
     isAvailable: boolean;
 
+    @Column('boolean', {
+        default: false,
+    })
+    isDeleted: boolean;
+
     @Column('date', {
         default: new Date(),
     })

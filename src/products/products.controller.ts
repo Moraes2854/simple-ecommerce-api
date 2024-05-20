@@ -9,6 +9,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
+  @Auth('admin')
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
   }
@@ -37,13 +38,29 @@ export class ProductsController {
     return this.productsService.findOne( id, findProductDto );
   }
 
+  @Get('/byName/:name')
+  findByName(
+    @Param('name') name: string,
+    @Query() findProductDto: FindProductDto
+  ) {
+    return this.productsService.findByName( name, findProductDto );
+  }
+
   @Patch(':id')
+  @Auth('admin')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productsService.update(id, updateProductDto);
   }
 
   @Delete(':id')
+  @Auth('admin')
   remove(@Param('id') id: string) {
     return this.productsService.remove(id);
+  }
+
+  @Patch('/rehabilitate/:id')
+  @Auth('admin')
+  rehabilitate(@Param('id') id: string) {
+    return this.productsService.rehabilitate(id);
   }
 }

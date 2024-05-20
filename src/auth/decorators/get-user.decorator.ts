@@ -13,7 +13,7 @@ export const GetUser = createParamDecorator(
 
         
 
-        return (data) ? user[data] : user;
+        return ( data ) ? user[data] : user;
 
     }
 );

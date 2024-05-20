@@ -115,6 +115,20 @@ export class ProductsService {
     }
   }
 
+  async findByName( name: string, filters: FindProductDto ){
+    try {
+      const products = await this.productRepository.find({
+        where: {
+          ...this.buildWhereByFilters( filters ),
+          name: ILike(`%${ name }%`)
+        },
+      });
+      return products;
+    } catch (error) {
+      this.handleDBError( error );
+    }
+  }
+
   async update(id: string, updateProductDto: UpdateProductDto) {
     try {
       await this.productRepository.update(id, {
@@ -131,13 +145,19 @@ export class ProductsService {
   }
 
   async remove(id: string) {
-    await this.update( id, { isAvailable: false } );
+    await this.update( id, { isAvailable: false, isDeleted: true } );
+    return true;
+  }
+
+  async rehabilitate( id: string ){
+    await this.update( id, { isDeleted: false } );
     return true;
   }
 
   private buildWhereByFilters( filters: FindProductDto ){
     let where = { };
     if ( typeof filters.isAvailable === 'boolean' ) where = { ...where, isAvailable: filters.isAvailable };
+    if ( typeof filters.isDeleted === 'boolean' ) where = { ...where, isDeleted: filters.isDeleted };
     if ( filters.name ) where = { ...where, name: ILike(`%${ filters.name }%`) };
     // if ( filters.categoryId ) where = { ...where, categoryId: filters.categoryId };
     // if ( filters.price ) where = { ...where, price: filters.price };

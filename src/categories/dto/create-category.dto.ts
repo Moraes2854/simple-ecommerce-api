@@ -22,6 +22,15 @@ export class CreateCategoryDto {
         return value;
     })
     isAvailable?: boolean;
+    
+    @IsBoolean()
+    @IsOptional()
+    @Transform(({ value }) => {
+        if ( value === 'true' ) return true;
+        if ( value === 'false' ) return false;
+        return value;
+    })
+    isDeleted?: boolean;
 
     @IsString({ each: true })
     @IsArray()

@@ -16,6 +16,15 @@ export class FindCategoryDto {
     })
     isAvailable?: boolean;
 
+    @IsBoolean()
+    @IsOptional()
+    @Transform(({ value }) => {
+        if ( value === 'true' ) return true;
+        if ( value === 'false' ) return false;
+        return value;
+    })
+    isDeleted?: boolean;
+
     @IsUUID()
     @IsOptional()
     parentId?: string;

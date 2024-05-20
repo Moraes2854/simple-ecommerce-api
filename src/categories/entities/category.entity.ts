@@ -25,6 +25,11 @@ export class Category {
     })
     isAvailable: boolean;
 
+    @Column('boolean', {
+        default: false,
+    })
+    isDeleted: boolean;
+
     @Column('text', {
         array: true,
         default: []

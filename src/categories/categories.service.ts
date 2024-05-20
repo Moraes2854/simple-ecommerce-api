@@ -79,9 +79,17 @@ export class CategoriesService {
 
   async findTree( filters: FindCategoryDto, ){
     try {
-      const categories = await this.findAllMain( filters );
+      const categories = await this.categoryRepository.find({
+        where: {
+          ...this.buildWhereByFilters( filters ),
+        },
+        order: {
+          name: 'ASC',
+        }
+      });
+      // const categories = await this.findAllMain( filters );
 
-      const finalCategories = this.buildCategoryTree( categories );
+      const finalCategories = this.buildCategoryTree( categories ).filter( category => category.parentId === null );
 
 
       return finalCategories;
@@ -124,6 +132,19 @@ export class CategoriesService {
     try {
       await this.categoryRepository.update(id, {
         isAvailable: false,
+        isDeleted: true
+      });
+
+      return true;
+    } catch (error) {
+      this.handleDBError(error);
+    }
+  }
+
+  async rehabilitate(id: string) {
+    try {
+      await this.categoryRepository.update(id, {
+        isDeleted: false
       });
 
       return true;
@@ -148,6 +169,7 @@ export class CategoriesService {
   private buildWhereByFilters( filters: FindCategoryDto ){
     let where = { };
     if ( typeof filters.isAvailable === 'boolean' ) where = { ...where, isAvailable: filters.isAvailable };
+    if ( typeof filters.isDeleted === 'boolean' ) where = { ...where, isDeleted: filters.isDeleted };
     if ( filters.name ) where = { ...where, name: ILike(`%${ filters.name }%`) };
     if ( filters.parentId ) where = { ...where, parentId: filters.parentId };
 
