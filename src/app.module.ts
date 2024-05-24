@@ -8,10 +8,12 @@ import { HomeModule } from './home/home.module';
 import { TrendsModule } from './trends/trends.module';
 import { AuthModule } from './auth/auth.module';
 
+console.log(envs);
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type:'postgres',
+      type: 'postgres',
       host: envs.dbHost,
       port: envs.dbPort,
       database: envs.dbName,
@@ -19,7 +21,10 @@ import { AuthModule } from './auth/auth.module';
       password: envs.dbPassword,
       autoLoadEntities: true,
       synchronize: true,
-      ssl: true
+      url: envs.postgresUrl,
+      ssl: {
+        rejectUnauthorized: false
+      }
     }),
     ProductsModule, 
     CategoriesModule,
