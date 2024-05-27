@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto, UpdateCategoryDto, FindCategoryDto } from './dto';
 import { PaginationDto } from '../common/dto';
@@ -52,7 +52,7 @@ export class CategoriesController {
     return this.categoriesService.findOne(id, findCategoryDto);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @Auth('admin')
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoriesService.update(id, updateCategoryDto);
@@ -64,7 +64,7 @@ export class CategoriesController {
     return this.categoriesService.remove(id);
   }
 
-  @Patch('/rehabilitate/:id')
+  @Put('/rehabilitate/:id')
   @Auth('admin')
   rehabilitate(@Param('id') id: string) {
     return this.categoriesService.rehabilitate(id);
