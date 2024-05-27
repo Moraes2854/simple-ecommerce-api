@@ -16,25 +16,13 @@ export class Product {
         default: null,
         nullable: true,
     })
-    pricePesos: number;
+    price: number;
 
     @Column('float', {
         default: null,
         nullable: true
     })
-    promotionalPricePesos: number;
-
-    @Column('float', {
-        default: null,
-        nullable: true,
-    })
-    priceDollar: number;
-
-    @Column('float', {
-        default: null,
-        nullable: true
-    })
-    promotionalPriceDollar: number;
+    promotionalPrice: number;
 
     @Column({
         type: 'text',
@@ -73,6 +61,7 @@ export class Product {
         default: false,
     })
     isDeleted: boolean;
+
 
     @Column('date', {
         default: new Date(),

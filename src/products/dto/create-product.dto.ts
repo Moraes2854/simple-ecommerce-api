@@ -9,22 +9,12 @@ export class CreateProductDto {
     @IsNumber()
     @IsOptional()
     @IsPositive()
-    pricePesos?: number;
+    price?: number;
 
     @IsNumber()
     @IsOptional()
     @IsPositive()
-    promotionalPricePesos?: number;
-
-    @IsNumber()
-    @IsOptional()
-    @IsPositive()
-    priceDollar?: number;
-
-    @IsNumber()
-    @IsOptional()
-    @IsPositive()
-    promotionalPriceDollar?: number;
+    promotionalPrice?: number;
 
     @IsString()
     @IsOptional()
