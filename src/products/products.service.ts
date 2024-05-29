@@ -145,9 +145,14 @@ export class ProductsService {
   }
 
   async remove(id: string) {
-    await this.productCategoryService.deleteAllByProductId( id );
-    await this.productRepository.delete({ id });
-    return true;
+    try {
+      await this.productCategoryService.deleteAllByProductId( id );
+      await this.productRepository.delete({ id });
+      return true;
+    } catch (error) {
+      this.handleDBError( error );
+    }
+
   }
 
   async rehabilitate( id: string ){

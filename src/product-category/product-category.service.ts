@@ -92,6 +92,10 @@ export class ProductCategoryService {
         await this.productCategoryRepository.delete({ productId });
     }
 
+    async deleteAllByCategoryId( categoryId: string ){
+        await this.productCategoryRepository.delete({ categoryId });
+    }
+
     private handleDBError( error: any ){
         console.log(error);
         if (error.code === '23505') throw new BadRequestException(error.detail);

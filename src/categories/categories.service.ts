@@ -5,6 +5,7 @@ import { DataSource, Repository, Like, IsNull, ILike } from 'typeorm';
 import { CreateCategoryDto, UpdateCategoryDto, FindCategoryDto } from './dto';
 import { Category } from './entities/category.entity';
 import { PaginationDto } from '../common/dto';
+import { ProductCategoryService } from '../product-category/product-category.service';
 
 @Injectable()
 export class CategoriesService {
@@ -13,6 +14,7 @@ export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
+    private readonly productCategoryService: ProductCategoryService,
     private readonly dataSource: DataSource,
 
   ){}
@@ -130,11 +132,8 @@ export class CategoriesService {
 
   async remove(id: string) {
     try {
-      await this.categoryRepository.update(id, {
-        isAvailable: false,
-        isDeleted: true
-      });
-
+      await this.productCategoryService.deleteAllByCategoryId( id );
+      await this.categoryRepository.delete({ id });
       return true;
     } catch (error) {
       this.handleDBError(error);
