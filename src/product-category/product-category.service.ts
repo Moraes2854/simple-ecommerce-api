@@ -88,13 +88,13 @@ export class ProductCategoryService {
     }
     
     
-    async delete( id: string ){
-
+    async deleteAllByProductId( productId: string ){
+        await this.productCategoryRepository.delete({ productId });
     }
 
     private handleDBError( error: any ){
         console.log(error);
-        if (error.code === '23505') throw new BadRequestException(error.datail);
+        if (error.code === '23505') throw new BadRequestException(error.detail);
         
         this.logger.error(error);
         if ( !error.message ) throw new InternalServerErrorException(`Unexpected error, check server logs`);

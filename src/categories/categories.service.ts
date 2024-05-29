@@ -144,6 +144,7 @@ export class CategoriesService {
   async rehabilitate(id: string) {
     try {
       await this.categoryRepository.update(id, {
+        isAvailable: true,
         isDeleted: false
       });
 
@@ -195,7 +196,7 @@ export class CategoriesService {
 
 
   private handleDBError( error: any ){
-    if (error.code === '23505') throw new BadRequestException(error.datail);
+    if (error.code === '23505') throw new BadRequestException(error.detail);
     
     this.logger.error(error);
 

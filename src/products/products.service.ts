@@ -145,7 +145,8 @@ export class ProductsService {
   }
 
   async remove(id: string) {
-    await this.update( id, { isAvailable: false, isDeleted: true } );
+    await this.productCategoryService.deleteAllByProductId( id );
+    await this.productRepository.delete({ id });
     return true;
   }
 
@@ -169,8 +170,9 @@ export class ProductsService {
 
   private handleDBError( error: any ){
     console.log(error);
-    if (error.code === '23505') throw new BadRequestException(error.datail);
+    if (error.code === '23505') throw new BadRequestException(error.detail);
     this.logger.error(error);
+    
     if ( !error.message ) throw new InternalServerErrorException(`Unexpected error, check server logs`);
     else throw new InternalServerErrorException(error.message)
   }

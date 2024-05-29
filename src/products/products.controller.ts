@@ -58,9 +58,4 @@ export class ProductsController {
     return this.productsService.remove(id);
   }
 
-  @Put('/rehabilitate/:id')
-  @Auth('admin')
-  rehabilitate(@Param('id') id: string) {
-    return this.productsService.rehabilitate(id);
-  }
 }

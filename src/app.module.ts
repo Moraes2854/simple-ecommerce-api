@@ -7,11 +7,17 @@ import { envs } from './config/envs';
 import { HomeModule } from './home/home.module';
 import { TrendsModule } from './trends/trends.module';
 import { AuthModule } from './auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 console.log(envs);
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+      exclude:['api/*'],
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: envs.dbHost,
