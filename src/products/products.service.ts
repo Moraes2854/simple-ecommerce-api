@@ -7,6 +7,7 @@ import { CreateProductDto, UpdateProductDto, FindProductDto } from './dto';
 import { Product } from './entities/product.entity';
 import { ProductCategoryService } from '../product-category/product-category.service';
 import { PaginationDto } from '../common/dto/pagination.dto';
+import { Category } from '../categories/entities/category.entity';
 
 @Injectable()
 export class ProductsService {
@@ -122,8 +123,10 @@ export class ProductsService {
       });
 
       if ( !product ) throw new NotFoundException(`Product with id ${ id } and filters sended not found`);
+
+      const finalCategories = this.buildCategoryTree( product.categories );
       
-      return product;
+      return { ...product, categories: finalCategories };
     } catch (error) {
       this.handleDBError( error );
     }
@@ -188,6 +191,23 @@ export class ProductsService {
     if ( filters.stock ) where = { ...where, stock: filters.stock };
     if ( filters.slug ) where = { ...where, slug: filters.slug };
     return where;
+  }
+
+  private buildCategoryTree(categories: Category[]): Category[] {
+    let tree: Category[] = [];
+    let lookup: { [key: number]: Category } = {};
+
+    categories.forEach(category => {
+      lookup[category.id] = category;
+      category.childrens = [];
+    });
+
+    categories.forEach(category => {
+      if (category.parentId) lookup[category.parentId].childrens.push(category);
+      else tree.push(category); 
+    });
+
+    return tree;
   }
 
   private handleDBError( error: any ){
