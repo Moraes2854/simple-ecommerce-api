@@ -1,5 +1,5 @@
-import { Transform } from "class-transformer";
-import { IsArray, IsInt, IsNumber, IsOptional, IsPositive, IsString, MinLength, IsBoolean } from "class-validator";
+import { Transform } from 'class-transformer';
+import { IsArray, IsInt, IsNumber, IsOptional, IsPositive, IsString, MinLength, IsBoolean } from 'class-validator';
 
 export class CreateProductDto {
     @IsString()

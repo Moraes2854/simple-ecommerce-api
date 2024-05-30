@@ -52,8 +52,13 @@ export class ProductsService {
         skip: offset,
         order: {
           name: 'ASC',
+        },
+        relations: {
+          categories: true
         }
       });
+
+
       return products;
     } catch (error) {
       this.handleDBError(error);
@@ -77,6 +82,9 @@ export class ProductsService {
       const products = await this.productRepository.find({
         take: limit,
         skip: offset,
+        relations: {
+          categories: true
+        }
       });
       return products;
     } catch (error) {
@@ -91,6 +99,9 @@ export class ProductsService {
         where: this.buildWhereByFilters( filters ),
         take: limit,
         skip: offset,
+        relations: {
+          categories: true
+        }
       });
       return products;
     } catch (error) {
@@ -104,6 +115,9 @@ export class ProductsService {
         where: {
           ...this.buildWhereByFilters( filters ),
           id
+        },
+        relations: {
+          categories: true
         }
       });
 
@@ -121,6 +135,9 @@ export class ProductsService {
         where: {
           ...this.buildWhereByFilters( filters ),
           name: ILike(`%${ name }%`)
+        },
+        relations: {
+          categories: true
         },
       });
       return products;
