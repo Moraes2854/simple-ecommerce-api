@@ -151,10 +151,16 @@ export class ProductsService {
 
   async update(id: string, updateProductDto: UpdateProductDto) {
     try {
+      const { categoryIds, ...dataToUpdate } = updateProductDto;
+
       await this.productRepository.update(id, {
-        ...updateProductDto,
+        ...dataToUpdate,
         id
       });
+
+      await this.productCategoryService.deleteAllByProductId( id );
+
+      await this.productCategoryService.createSeveral( id, categoryIds )
 
       const product = await this.findOne( id, { } );
   
