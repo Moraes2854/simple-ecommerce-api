@@ -10,7 +10,7 @@ export class Category {
     parentId: string | null;
 
     @Column('text', {
-        unique: true,
+        unique: false,
     })
     name: string;
 
