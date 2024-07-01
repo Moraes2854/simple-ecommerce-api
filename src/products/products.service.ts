@@ -34,7 +34,6 @@ export class ProductsService {
 
       await this.productRepository.save( product );
       
-
       const productsCategories = await this.productCategoryService.createSeveral( product.id, categoryIds )
 
       return { ...product, productsCategories };
@@ -178,7 +177,6 @@ export class ProductsService {
     } catch (error) {
       this.handleDBError( error );
     }
-
   }
 
   async rehabilitate( id: string ){

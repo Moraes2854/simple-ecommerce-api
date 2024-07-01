@@ -154,6 +154,7 @@ export class CategoriesService {
   }
 
   private async validate( createCategoryDto: CreateCategoryDto ){
+    return true;
     const exists = await this.categoryRepository.findOne({
       where: {
         name: createCategoryDto.name,
