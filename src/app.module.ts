@@ -28,9 +28,7 @@ console.log(envs);
       autoLoadEntities: true,
       synchronize: true,
       url: envs.postgresUrl,
-      ssl: {
-        rejectUnauthorized: false
-      }
+      ssl: envs.useSsl ? { rejectUnauthorized: false } : undefined
     }),
     ProductsModule, 
     CategoriesModule,
