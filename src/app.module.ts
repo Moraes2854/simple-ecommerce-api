@@ -9,6 +9,7 @@ import { TrendsModule } from './trends/trends.module';
 import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { SeedModule } from './seed/seed.module';
 
 console.log(envs);
 
@@ -36,6 +37,7 @@ console.log(envs);
     HomeModule,
     TrendsModule,
     AuthModule,
+    SeedModule,
   ],
   controllers: [],
   providers: [],
