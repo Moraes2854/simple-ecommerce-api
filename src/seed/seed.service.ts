@@ -40,6 +40,7 @@ export class SeedService {
     }
 
     async createUsers(){
+        await this.userRepository.delete({});
         for (const userData of users) {
             const user = this.userRepository.create(userData);
             await this.userRepository.save( user );
@@ -47,6 +48,7 @@ export class SeedService {
     }
 
     async createCategories(){
+        await this.categoryRepository.delete({});
         for (const categoryData of categories) {
             const category = this.categoryRepository.create( categoryData );
             await this.categoryRepository.save( category );
@@ -54,6 +56,7 @@ export class SeedService {
     }
 
     async createProducts(){
+        await this.productRepository.delete({});
         for (const productData of products) {
             const product = this.productRepository.create( productData );
             await this.productRepository.save( product );
@@ -61,6 +64,7 @@ export class SeedService {
     }
 
     async createProductsCategories(){
+        await this.productCategoryRepository.delete({});
         for (const productCategoryData of product_categories) {
             const productCategory = this.productCategoryRepository.create( productCategoryData );
             await this.productCategoryRepository.save( productCategory );
