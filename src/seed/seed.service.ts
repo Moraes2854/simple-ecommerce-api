@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -33,10 +33,16 @@ export class SeedService {
     }
 
     async execute(){
-        await this.createUsers();
-        await this.createCategories();
-        await this.createProducts();
-        await this.createProductsCategories();
+        try {
+            await this.createUsers();
+            await this.createCategories();
+            await this.createProducts();
+            await this.createProductsCategories();
+        } catch (error) {
+            console.log(error);
+            throw new InternalServerErrorException( error.message );
+        }
+
     }
 
     async createUsers(){
@@ -49,6 +55,7 @@ export class SeedService {
 
     async createCategories(){
         await this.categoryRepository.delete({});
+        return;
         for (const categoryData of categories) {
             const category = this.categoryRepository.create( categoryData );
             await this.categoryRepository.save( category );
