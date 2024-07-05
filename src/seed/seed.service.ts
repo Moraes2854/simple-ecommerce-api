@@ -8,10 +8,10 @@ import { Product } from '../products/entities/product.entity';
 import { ProductCategory } from '../product-category/entities/product-category.entity';
 import { User } from '../auth/entities/user.entity';
 
-import categories from './data/categories.json'
-import product_categories from './data/product_category.json'
-import products from './data/products.json'
-import users from './data/users.json'
+import * as categories from './data/categories.json'
+import * as product_categories from './data/product_category.json'
+import * as products from './data/products.json'
+import * as users from './data/users.json'
 
 
 @Injectable()
