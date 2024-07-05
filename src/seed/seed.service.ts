@@ -55,7 +55,6 @@ export class SeedService {
 
     async createCategories(){
         await this.categoryRepository.delete({});
-        return;
         for (const categoryData of categories) {
             const category = this.categoryRepository.create( categoryData );
             await this.categoryRepository.save( category );
