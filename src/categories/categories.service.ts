@@ -35,8 +35,8 @@ export class CategoriesService {
       const { limit = 20, offset = 0 } = paginationDto;
       const categories = await this.categoryRepository.find({
         where: this.buildWhereByFilters( filters ),
-        take: limit,
-        skip: offset,
+        // take: limit,
+        // skip: offset,
       });
       return categories;
     } catch (error) {
@@ -49,8 +49,8 @@ export class CategoriesService {
       const { limit = 20, offset = 0 } = paginationDto;
       const categories = await this.categoryRepository.find({
         where: this.buildWhereByFilters( filters ),
-        take: limit,
-        skip: offset,
+        // take: limit,
+        // skip: offset,
         order: {
           name: 'ASC',
         }

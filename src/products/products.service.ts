@@ -48,8 +48,8 @@ export class ProductsService {
       const { limit = 10, offset = 0 } = paginationDto;
 
       const products = await this.productRepository.find({
-        take: limit,
-        skip: offset,
+        // take: limit,
+        // skip: offset,
         order: {
           name: 'ASC',
         },
@@ -80,8 +80,8 @@ export class ProductsService {
       const { limit = 10, offset = 0 } = paginationDto;
 
       const products = await this.productRepository.find({
-        take: limit,
-        skip: offset,
+        // take: limit,
+        // skip: offset,
         relations: {
           categories: true
         }
@@ -97,8 +97,8 @@ export class ProductsService {
       const { limit = 20, offset = 0 } = paginationDto;
       const products = await this.productRepository.find({
         where: this.buildWhereByFilters( filters ),
-        take: limit,
-        skip: offset,
+        // take: limit,
+        // skip: offset,
         relations: {
           categories: true
         }
