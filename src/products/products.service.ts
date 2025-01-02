@@ -1,6 +1,6 @@
 import { Injectable, Logger, BadRequestException, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository, Like, ILike } from 'typeorm';
+import { DataSource, Repository, Like, ILike, In } from 'typeorm';
 import { validate as isUUID } from 'uuid';
 
 import { CreateProductDto, UpdateProductDto, FindProductDto } from './dto';
@@ -212,6 +212,22 @@ export class ProductsService {
     });
 
     return tree;
+  }
+
+  public async getListInPesos( productsIds: string[], dolarValueInPesos: number ): Promise<string>{
+    const products = await this.productRepository.find({
+      where: { id: In( productsIds ) }
+    });
+
+    let response: string = '';
+
+    for (const product of products){
+      let pesosPrice = product.price * dolarValueInPesos;
+      if ( product.promotionalPrice ) pesosPrice = product.promotionalPrice * dolarValueInPesos;
+      response+=`${ product.name.toUpperCase() } ${ product.price } USD O ${ pesosPrice } PESOS\n\n`;
+    } 
+    
+    return response;
   }
 
   private handleDBError( error: any ){

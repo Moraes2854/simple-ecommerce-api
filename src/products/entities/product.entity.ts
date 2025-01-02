@@ -22,7 +22,7 @@ export class Product {
         default: null,
         nullable: true
     })
-    promotionalPrice: number;
+    promotionalPrice?: number;
 
     @Column({
         type: 'text',

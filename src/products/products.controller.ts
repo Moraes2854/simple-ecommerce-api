@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseBoolPipe, Put } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { CreateProductDto, FindProductDto, UpdateProductDto } from './dto';
+import { CreateProductDto, FindProductDto, ListPricesDto, UpdateProductDto } from './dto';
 import { PaginationDto } from '../common/dto';
 import { Auth } from '../auth/decorators';
 
@@ -12,6 +12,13 @@ export class ProductsController {
   @Auth('admin')
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
+  }
+
+  @Post('/listPrices')
+  getStringListPrices(
+    @Body() listPricesDto: ListPricesDto,
+  ) {
+    return this.productsService.getListInPesos( listPricesDto.productsIds, listPricesDto.dolarValueInPesos );
   }
 
   @Get()
