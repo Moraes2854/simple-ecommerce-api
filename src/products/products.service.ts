@@ -151,7 +151,7 @@ export class ProductsService {
           categories: true
         },
         order: {
-          name: 'ASC',
+          name: 'desc',
         },
       });
       return products;
