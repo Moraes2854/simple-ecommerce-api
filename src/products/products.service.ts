@@ -84,7 +84,10 @@ export class ProductsService {
         // skip: offset,
         relations: {
           categories: true
-        }
+        },
+        order: {
+          name: 'ASC',
+        },
       });
       return products;
     } catch (error) {
@@ -101,7 +104,10 @@ export class ProductsService {
         // skip: offset,
         relations: {
           categories: true
-        }
+        },
+        order: {
+          name: 'ASC',
+        }, 
       });
       return products;
     } catch (error) {
@@ -118,7 +124,10 @@ export class ProductsService {
         },
         relations: {
           categories: true
-        }
+        },
+        order: {
+          name: 'ASC',
+        },
       });
 
       if ( !product ) throw new NotFoundException(`Product with id ${ id } and filters sended not found`);
@@ -140,6 +149,9 @@ export class ProductsService {
         },
         relations: {
           categories: true
+        },
+        order: {
+          name: 'ASC',
         },
       });
       return products;
@@ -216,7 +228,10 @@ export class ProductsService {
 
   public async getListInPesos( productsIds: string[], dolarValueInPesos: number ): Promise<string>{
     const products = await this.productRepository.find({
-      where: { id: In( productsIds ) }
+      where: { id: In( productsIds ) },
+      order: {
+        name: 'ASC',
+      },
     });
 
     let response: string = '';
