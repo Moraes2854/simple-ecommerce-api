@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNumber, IsOptional, IsPositive, IsString, MinLength, IsBoolean } from "class-validator";
+import { IsInt, IsNumber, IsOptional, IsPositive, IsString, MinLength, IsBoolean, IsArray } from "class-validator";
 import { Transform, Type } from "class-transformer";
 
 const optionalBooleanMapper = new Map([
@@ -18,6 +18,10 @@ export class FindProductDto {
     @IsOptional()
     name?: string;
 
+    @IsString({ each: true })
+    @IsArray()
+    @IsOptional()
+    categoriesIds?: string[];
 
     @ApiProperty({
         description: 'price of product',

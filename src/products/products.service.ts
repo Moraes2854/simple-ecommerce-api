@@ -100,8 +100,6 @@ export class ProductsService {
       const { limit = 20, offset = 0 } = paginationDto;
       const products = await this.productRepository.find({
         where: this.buildWhereByFilters( filters ),
-        // take: limit,
-        // skip: offset,
         relations: {
           categories: true
         },
@@ -201,6 +199,7 @@ export class ProductsService {
     if ( typeof filters.isAvailable === 'boolean' ) where = { ...where, isAvailable: filters.isAvailable };
     if ( typeof filters.isDeleted === 'boolean' ) where = { ...where, isDeleted: filters.isDeleted };
     if ( filters.name ) where = { ...where, name: ILike(`%${ filters.name }%`) };
+    if ( filters.categoriesIds ) where = { ...where, categories: { id: In( filters.categoriesIds ), } }
     // if ( filters.categoryId ) where = { ...where, categoryId: filters.categoryId };
     // if ( filters.price ) where = { ...where, price: filters.price };
     // if ( filters.promotionalPrice ) where = { ...where, promotionalPrice: filters.promotionalPrice };
